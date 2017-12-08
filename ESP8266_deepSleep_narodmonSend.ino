@@ -23,6 +23,7 @@ Serial.print("WiFi подключен, ChipId: "), Serial.println(ESP.getChipId(
 Serial.print("IP Адрес: "),             Serial.println(WiFi.localIP());
 Serial.print("MAC Адрес: "),            Serial.println(WiFi.macAddress()), Serial.println();
 sensors.begin(); 
+narodmonSend ();                        // отправка сразу после старта 
                }
 
 void loop()    {
