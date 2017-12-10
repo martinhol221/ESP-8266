@@ -44,7 +44,7 @@ String buf;
 buf = "#" + WiFi.macAddress() + "#Dev"  +  ESP.getChipId()  + "\n";    // Заголовок с МАС адресом и ID чипа
 buf = buf + "#RSSI#" + WiFi.RSSI() /* + "#Уровень вайфай" */ + "\n";   // Уровень вайфай
 buf = buf + "#VBAT#" + vbat /* + "#Напряжение" */ + "\n";              // Напряжение
-while (1){
+while (inDS < 10){
         float TempDS = sensors.getTempCByIndex(inDS);                  // читаем температуру
         if (TempDS == -127.00) break;                                  // пока не доберемся до неподключенного датчика
         inDS++;                                                               
