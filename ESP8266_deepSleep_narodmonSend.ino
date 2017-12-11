@@ -23,20 +23,22 @@ Serial.print("WiFi подключен, ChipId: "), Serial.println(ESP.getChipId(
 Serial.print("IP Адрес: "),             Serial.println(WiFi.localIP());
 Serial.print("MAC Адрес: "),            Serial.println(WiFi.macAddress()), Serial.println();
 sensors.begin(); 
-narodmonSend ();                        // отправка сразу после старта 
+sensors.requestTemperatures(); 
+
                }
 
 void loop()    {
 //if (millis()> Time1 + 5000) Time1 = millis(), narodmonSend ();       // выполняем функцию narodmonSend каждые 10 сек для теста
 
 narodmonSend ();
+Serial.println("Засыпаем на 5 минут");
 ESP.deepSleep(5*60*1000000);          // спать на 5 минут пины D16 и  RST должны быть соеденены между собой
                 }
 
 
 void narodmonSend () {
 float vbat = analogRead(A0); 
-vbat = vbat / 3; 
+// vbat = vbat / 3; 
 int inDS = 0;
 sensors.requestTemperatures(); 
 delay (1000);
@@ -53,11 +55,11 @@ while (inDS < 10){
 buf = buf + "#Uptime#" +millis()/1000+"\n";                            // время работы       
 buf = buf + "##";                                                      // закрываем пакет ##
   
-
+Serial.println("Соеденение с сервером narodmon.ru...."); 
 if (!client.connect("narodmon.ru", 8283)) {
-    Serial.println("connection failed");
+    Serial.println("нет соединения");
     return;
                                           }
 client.print(buf);                                                     // и отправляем данные   
-Serial.println(buf);  
+Serial.println(buf); 
                     }              
