@@ -9,6 +9,7 @@ WiFiClient client;
 const char* ssid = "AAA";          // имя удаленной точки доступа роутера 
 const char* password = "BBB";      // пароль удаленной точки доступа
 unsigned long Time1 = 0; 
+ADC_MODE(ADC_VCC);
 
 void setup()   {
 Serial.begin(115200);  
@@ -41,7 +42,7 @@ ESP.deepSleep(5*60*1000000);          // спать на 5 минут пины D
 
 
 void narodmonSend () {
-float vbat = analogRead(A0); 
+//float vbat = analogRead(A0); 
 // vbat = vbat / 3; 
 int inDS = 0;
 sensors.requestTemperatures(); 
@@ -49,7 +50,7 @@ delay (1000);
 String buf;
 buf = "#" + WiFi.macAddress() + "#Dev"  +  ESP.getChipId()  + "\n";    // Заголовок с МАС адресом и ID чипа
 buf = buf + "#RSSI#" + WiFi.RSSI() /* + "#Уровень вайфай" */ + "\n";   // Уровень вайфай
-buf = buf + "#VBAT#" + vbat /* + "#Напряжение" */ + "\n";              // Напряжение
+buf = buf + "#VBAT#" + ESP.getVcc()/* + "#Напряжение" */ + "\n";              // Напряжение
 while (inDS < 10){
         float TempDS = sensors.getTempCByIndex(inDS);                  // читаем температуру
         if (TempDS == -127.00) break;                                  // пока не доберемся до неподключенного датчика
