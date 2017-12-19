@@ -18,7 +18,11 @@ WiFi.mode   (WIFI_AP_STA);         // запускаем смешенный ре
 WiFi.softAP ("ESP","martinhol");   // поднимаем соaт точку доступа
 WiFi.begin  (ssid, password);
 Serial.println("Подключаюсь к сети "),      Serial.println(ssid);
-while (WiFi.status() != WL_CONNECTED)     delay(500), Serial.print(".");
+int count = 0;
+while (WiFi.status() != WL_CONNECTED)  {
+  delay(500), Serial.print("."), count++ ;
+  if (count > 60) Serial.println(" cон на 10 минут"), ESP.deepSleep(10*60*1000000); // в случае не подключения засыпаем на 10 минут
+  };
 Serial.print("WiFi подключен, ChipId: "), Serial.println(ESP.getChipId());
 Serial.print("IP Адрес: "),             Serial.println(WiFi.localIP());
 Serial.print("MAC Адрес: "),            Serial.println(WiFi.macAddress()), Serial.println();
