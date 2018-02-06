@@ -5,7 +5,7 @@ DallasTemperature sensors(&oneWire);
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 WiFiClient client;
-#define PIN_POWER_DS 13             // Шина питания датчика температуры
+#define PIN_POWER_DS 5             // Шина питания датчика температуры
 const char* ssid = "AAA";          // имя удаленной точки доступа роутера 
 const char* password = "BBB";      // пароль удаленной точки доступа
 unsigned long Time1 = 0; 
@@ -48,7 +48,7 @@ int inDS = 0;
 sensors.requestTemperatures(); 
 delay (1000);
 String buf;
-buf = "#" + WiFi.macAddress() + "#Dev"  +  ESP.getChipId()  + "\n";    // Заголовок с МАС адресом и ID чипа
+buf = "#" + WiFi.macAddress() + "#ESP"  +  ESP.getChipId()  + "\n";    // Заголовок с МАС адресом и ID чипа
 buf = buf + "#RSSI#" + WiFi.RSSI() /* + "#Уровень вайфай" */ + "\n";   // Уровень вайфай
 buf = buf + "#VBAT#" + ESP.getVcc()/* + "#Напряжение" */ + "\n";              // Напряжение
 while (inDS < 10){
@@ -61,7 +61,8 @@ buf = buf + "#Uptime#" +millis()/1000+"\n";                            // вре
 buf = buf + "##";                                                      // закрываем пакет ##
   
 Serial.println("Соеденение с сервером narodmon.ru...."); 
-if (!client.connect("narodmon.ru", 8283)) {
+//if (!client.connect("narodmon.ru", 8283)) {
+if (!client.connect("94.142.140.101", 8283)) {  
     Serial.println("нет соединения");
     return;
                                           }
