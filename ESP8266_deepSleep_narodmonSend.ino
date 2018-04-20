@@ -14,7 +14,7 @@ float Vbat,V_min = 3.00;                       // напряжение бата�
 
 void setup()   {
 Serial.begin(115200);  
-Serial.print("Загрузка модуля: "), Serial.println(EspTopic);
+Serial.print("Загрузка модуля: ");
 Vbat =  ESP.getVcc();         // читаем напряжение на ноге VCC модуля ESP8266
 Vbat =  Vbat / 1023;          
 Serial.print("Заряд батареи: "), Serial.print(Vbat), Serial.println(" вольт");
