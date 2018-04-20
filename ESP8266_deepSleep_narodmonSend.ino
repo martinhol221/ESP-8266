@@ -10,9 +10,15 @@ const char* ssid = "AAA";          // имя удаленной точки до�
 const char* password = "BBB";      // пароль удаленной точки доступа
 unsigned long Time1 = 0; 
 ADC_MODE(ADC_VCC);
+float Vbat,V_min = 3.00;                       // напряжение батарейки, и минимальный порог напряжения для разрешения работы
 
 void setup()   {
 Serial.begin(115200);  
+Serial.print("Загрузка модуля: "), Serial.println(EspTopic);
+Vbat =  ESP.getVcc();         // читаем напряжение на ноге VCC модуля ESP8266
+Vbat =  Vbat / 1023;          
+Serial.print("Заряд батареи: "), Serial.print(Vbat), Serial.println(" вольт");
+if (Vbat < V_min ) Serial.println("Низкий заряд батареи, засыпаю на  30 минут"), ESP.deepSleep(1800*1000000);
 pinMode     (PIN_POWER_DS, OUTPUT); 
 digitalWrite(PIN_POWER_DS, HIGH); 
 WiFi.mode   (WIFI_AP_STA);         // запускаем смешенный режим 
