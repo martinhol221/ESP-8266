@@ -73,5 +73,6 @@ if (!client.connect("94.142.140.101", 8283)) {
     return;
                                           }
 client.print(buf);                                                     // и отправляем данные   
-Serial.println(buf); 
+Serial.println(buf);
+delay(1000);  
                     }              
