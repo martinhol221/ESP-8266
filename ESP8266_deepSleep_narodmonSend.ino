@@ -67,8 +67,8 @@ buf = buf + "#Uptime#" +millis()/1000+"\n";                            // вре
 buf = buf + "##";                                                      // закрываем пакет ##
   
 Serial.println("Соеденение с сервером narodmon.ru...."); 
-//if (!client.connect("narodmon.ru", 8283)) {
-if (!client.connect("94.142.140.101", 8283)) {  
+if (!client.connect("narodmon.ru", 8283)) {
+//if (!client.connect("185.245.187.13", 8283)) {  
     Serial.println("нет соединения");
     return;
                                           }
