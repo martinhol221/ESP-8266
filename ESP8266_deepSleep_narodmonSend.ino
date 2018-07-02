@@ -39,7 +39,7 @@ sensors.requestTemperatures();
                }
 
 void loop()    {
-//if (millis()> Time1 + 5000) Time1 = millis(), narodmonSend ();       // выполняем функцию narodmonSend каждые 10 сек для теста
+//if (millis()> Time1 + 300000) Time1 = millis(), narodmonSend ();       // выполняем функцию narodmonSend каждые 10 сек для теста
 
 narodmonSend ();
 Serial.println("Засыпаем на 5 минут");
